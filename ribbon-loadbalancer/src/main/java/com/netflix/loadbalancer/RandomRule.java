@@ -23,6 +23,7 @@ import java.util.Random;
 import com.netflix.client.config.IClientConfig;
 
 /**
+ * 随机选择
  * A loadbalacing strategy that randomly distributes traffic amongst existing
  * servers.
  * 

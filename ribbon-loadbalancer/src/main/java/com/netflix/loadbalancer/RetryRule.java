@@ -20,6 +20,7 @@ package com.netflix.loadbalancer;
 import com.netflix.client.config.IClientConfig;
 
 /**
+ * 根据轮询的方式重试
  * Given that
  * {@link IRule} can be cascaded, this {@link RetryRule} class allows adding a retry logic to an existing Rule.
  * 

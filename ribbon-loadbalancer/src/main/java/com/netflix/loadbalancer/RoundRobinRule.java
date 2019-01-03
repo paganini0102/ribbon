@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
+ * 线性轮询
  * The most well known and basic load balancing strategy, i.e. Round Robin Rule.
  *
  * @author stonse

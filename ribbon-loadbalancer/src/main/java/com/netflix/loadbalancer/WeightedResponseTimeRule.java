@@ -30,7 +30,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/** 
+/**
+ * 根据响应时间去分配Weight，Weight越高，被选择的可能性就越大
  * Rule that use the average/percentile response times
  * to assign dynamic "weights" per Server which is then used in 
  * the "Weighted Round Robin" fashion. 
