@@ -31,6 +31,7 @@ import java.util.List;
 public interface ILoadBalancer {
 
 	/**
+	 * 向负载均衡器中维护的实例列表增加服务实例
 	 * Initial list of servers.
 	 * This API also serves to add additional ones at a later time
 	 * The same logical server (host:port) could essentially be added multiple times
@@ -41,6 +42,7 @@ public interface ILoadBalancer {
 	public void addServers(List<Server> newServers);
 	
 	/**
+	 * 通过某种策略，从负载均衡器中挑选出一个具体的服务实例
 	 * Choose a server from load balancer.
 	 * 
 	 * @param key An object that the load balancer may use to determine which server to return. null if 
@@ -50,6 +52,7 @@ public interface ILoadBalancer {
 	public Server chooseServer(Object key);
 	
 	/**
+	 * 用来通知和标识负载均衡器中某个具体实例已经停止服务，不然负载均衡器在下一次获取服务实例清单前都会认为服务实例均是正常服务的
 	 * To be called by the clients of the load balancer to notify that a Server is down
 	 * else, the LB will think its still Alive until the next Ping cycle - potentially
 	 * (assuming that the LB Impl does a ping)
@@ -71,11 +74,14 @@ public interface ILoadBalancer {
 	public List<Server> getServerList(boolean availableOnly);
 
 	/**
+	 * 返回当前可正常服务的实例列表
 	 * @return Only the servers that are up and reachable.
      */
     public List<Server> getReachableServers();
 
     /**
+	 * 返回所有已知的服务实例列表，包括正常服务和停止服务的实例
+	 * 在该接口中涉及的Server对象定义是一个传统的服务端节点，在其中存储了服务端节点的一些基础信息，如host/port等
      * @return All known servers, both reachable and unreachable.
      */
 	public List<Server> getAllServers();
