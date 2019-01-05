@@ -248,16 +248,17 @@ public class WeightedResponseTimeRule extends RoundRobinRule {
                     // no statistics, nothing to do
                     return;
                 }
+                // 计算所有实例的平均响应时间的总和
                 double totalResponseTime = 0;
                 // find maximal 95% response time
                 for (Server server : nlb.getAllServers()) {
                     // this will automatically load the stats if not in cache
-                    ServerStats ss = stats.getSingleServerStat(server);
+                    ServerStats ss = stats.getSingleServerStat(server); // 如果服务实例的状态快照不在缓存中，那么这里会进行自动加载
                     totalResponseTime += ss.getResponseTimeAvg();
                 }
                 // weight for each server is (sum of responseTime of all servers - responseTime)
                 // so that the longer the response time, the less the weight and the less likely to be chosen
-                Double weightSoFar = 0.0;
+                Double weightSoFar = 0.0; // 逐个计算每个实例的权重
                 
                 // create new list and hot swap the reference
                 List<Double> finalWeights = new ArrayList<Double>();

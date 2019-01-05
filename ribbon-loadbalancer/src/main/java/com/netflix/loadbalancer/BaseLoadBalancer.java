@@ -120,7 +120,7 @@ public class BaseLoadBalancer extends AbstractLoadBalancer implements
         this.name = DEFAULT_NAME;
         this.ping = null;
         setRule(DEFAULT_RULE);
-        setupPingTask();
+        setupPingTask(); // 直接启动一个用户定时检查Server是否健康的任务。该任务默认的执行间隔为10秒
         lbStats = new LoadBalancerStats(DEFAULT_NAME);
     }
 
