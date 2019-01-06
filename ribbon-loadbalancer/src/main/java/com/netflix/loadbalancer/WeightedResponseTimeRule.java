@@ -176,20 +176,20 @@ public class WeightedResponseTimeRule extends RoundRobinRule {
             int serverIndex = 0;
 
             // last one in the list is the sum of all weights
-            double maxTotalWeight = currentWeights.size() == 0 ? 0 : currentWeights.get(currentWeights.size() - 1); 
+            double maxTotalWeight = currentWeights.size() == 0 ? 0 : currentWeights.get(currentWeights.size() - 1);  // 获取最后一个实例的权重
             // No server has been hit yet and total weight is not initialized
             // fallback to use round robin
             if (maxTotalWeight < 0.001d) {
-                server =  super.choose(getLoadBalancer(), key);
+                server =  super.choose(getLoadBalancer(), key); // 如果最后一个实例的权重小于0.001，则采用父类实现的线性轮询的策略
                 if(server == null) {
                     return server;
                 }
             } else {
                 // generate a random weight between 0 (inclusive) to maxTotalWeight (exclusive)
-                double randomWeight = random.nextDouble() * maxTotalWeight;
+                double randomWeight = random.nextDouble() * maxTotalWeight; // 如果最后一个实例的权重值大于等于0.001，就产生一个[0, maxTotalWeight)的随机数
                 // pick the server index based on the randomIndex
                 int n = 0;
-                for (Double d : currentWeights) {
+                for (Double d : currentWeights) { // 遍历维护的权重清单，若权重大于等于随机得到的数值，就选择这个实例
                     if (d >= randomWeight) {
                         serverIndex = n;
                         break;

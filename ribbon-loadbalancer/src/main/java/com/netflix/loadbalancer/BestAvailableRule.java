@@ -45,6 +45,7 @@ public class BestAvailableRule extends ClientConfigEnabledRoundRobinRule {
         int minimalConcurrentConnections = Integer.MAX_VALUE;
         long currentTime = System.currentTimeMillis();
         Server chosen = null;
+        // 通过遍历负载均衡器中维护的所有服务实例，会过滤掉故障的实例，并找出发请求数最小的一个
         for (Server server: serverList) {
             ServerStats serverStats = loadBalancerStats.getSingleServerStat(server);
             if (!serverStats.isCircuitBreakerTripped(currentTime)) {
